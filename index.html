@@ -1,14 +1,67 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>masesk - Github Projects</title>
-  <link rel="stylesheet" href="lib/jawj-github/github-widget.css" />
-  <link rel="stylesheet" href="index.css"/>
-  <style>
-    body { margin: 2em 6em; }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>masesk · GitHub Projects</title>
+  <meta name="description" content="Open source projects by masesk on GitHub." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="https://github.com/masesk.png?size=64" />
+  <link rel="stylesheet" href="index.css" />
+  <script type="module" src="app.js"></script>
 </head>
 <body>
-  <h2>masesk - Github Projects</h2>
-  <div class="github-widget" data-user="masesk" data-options='{"forks":true}'></div>
-  <script src="lib/jawj-github/github-widget.min.js"></script>
+  <header class="profile" id="profile" aria-busy="true">
+    <img class="profile-avatar" id="avatar" src="https://github.com/masesk.png?size=160" alt="" width="80" height="80" />
+    <div class="profile-text">
+      <h1 class="profile-name" id="name">masesk</h1>
+      <p class="profile-bio" id="bio"></p>
+      <ul class="profile-meta" id="meta"></ul>
+    </div>
+    <a class="button" id="profile-link" href="https://github.com/masesk" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      Follow on GitHub
+    </a>
+  </header>
+
+  <main>
+    <div class="toolbar" role="search">
+      <label class="search">
+        <span class="visually-hidden">Search repositories</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10.68 11.74a6 6 0 1 1 1.06-1.06l3.04 3.04a.75.75 0 1 1-1.06 1.06l-3.04-3.04ZM11.5 7a4.5 4.5 0 1 0-9 0 4.5 4.5 0 0 0 9 0Z"/></svg>
+        <input type="search" id="search" placeholder="Search repositories…" autocomplete="off" />
+      </label>
+
+      <div class="segmented" role="group" aria-label="Repository type" id="type-filter">
+        <button type="button" data-type="all" aria-pressed="true">All</button>
+        <button type="button" data-type="sources" aria-pressed="false">Sources</button>
+        <button type="button" data-type="forks" aria-pressed="false">Forks</button>
+      </div>
+
+      <label class="select">
+        <span class="visually-hidden">Language</span>
+        <select id="language">
+          <option value="">All languages</option>
+        </select>
+      </label>
+
+      <label class="select">
+        <span class="visually-hidden">Sort by</span>
+        <select id="sort">
+          <option value="stars">Most stars</option>
+          <option value="updated">Recently updated</option>
+          <option value="name">Name</option>
+        </select>
+      </label>
+    </div>
+
+    <p class="result-count" id="count" aria-live="polite"></p>
+
+    <ul class="repo-grid" id="repos" aria-busy="true"></ul>
+  </main>
+
+  <footer class="footer">
+    Data from the <a href="https://docs.github.com/rest" target="_blank" rel="noopener">GitHub REST API</a>.
+  </footer>
 </body>
+</html>
