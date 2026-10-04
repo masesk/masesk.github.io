@@ -305,9 +305,41 @@ function renderError(error) {
     </li>`;
 }
 
+// ---------- Theme ----------
+
+const THEME_COLORS = { dark: "#0d1117", light: "#f6f8fa" };
+
+function applyTheme(theme) {
+  const root = document.documentElement;
+  if (theme === "light") root.dataset.theme = "light";
+  else delete root.dataset.theme;
+
+  const next = theme === "light" ? "dark" : "light";
+  const toggle = $("theme-toggle");
+  toggle.setAttribute("aria-label", `Switch to ${next} theme`);
+  toggle.title = `Switch to ${next} theme`;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLORS[theme]);
+}
+
+function bindThemeToggle() {
+  applyTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
+
+  $("theme-toggle").addEventListener("click", () => {
+    const theme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+    applyTheme(theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {
+      // Storage unavailable; the choice just won't persist.
+    }
+  });
+}
+
 // ---------- Events ----------
 
 function bindControls() {
+  bindThemeToggle();
+
   els.search.addEventListener("input", (e) => {
     state.query = e.target.value;
     renderRepos();

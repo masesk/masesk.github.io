@@ -1,4 +1,22 @@
+/* Dark is the default theme; light is opt-in via the toggle. */
 :root {
+  --bg: #0d1117;
+  --surface: #151b23;
+  --surface-hover: #1a212b;
+  --border: #2a313c;
+  --border-strong: #3d4450;
+  --text: #e6edf3;
+  --text-muted: #9198a1;
+  --accent: #4493f8;
+  --accent-soft: rgb(68 147 248 / 0.15);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+  --radius: 12px;
+  --skeleton: #212830;
+
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
   --bg: #f6f8fa;
   --surface: #ffffff;
   --surface-hover: #ffffff;
@@ -9,28 +27,13 @@
   --accent: #0969da;
   --accent-soft: rgb(9 105 218 / 0.1);
   --shadow: 0 1px 2px rgb(31 35 40 / 0.06), 0 8px 24px -12px rgb(31 35 40 / 0.18);
-  --radius: 12px;
   --skeleton: #e6eaef;
 
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0d1117;
-    --surface: #151b23;
-    --surface-hover: #1a212b;
-    --border: #2a313c;
-    --border-strong: #3d4450;
-    --text: #e6edf3;
-    --text-muted: #9198a1;
-    --accent: #4493f8;
-    --accent-soft: rgb(68 147 248 / 0.15);
-    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.6);
-    --skeleton: #212830;
-
-    color-scheme: dark;
-  }
+body {
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 *,
@@ -176,6 +179,40 @@ main,
   border-color: var(--border-strong);
   background: var(--surface-hover);
   text-decoration: none;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+/* Show the icon for the theme you'd switch to. */
+.theme-toggle .icon-moon,
+:root[data-theme="light"] .theme-toggle .icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-moon {
+  display: block;
 }
 
 /* ---------- Toolbar ---------- */
@@ -476,8 +513,12 @@ select {
     font-size: 22px;
   }
 
-  .button {
+  .profile-actions {
     width: 100%;
+  }
+
+  .button {
+    flex: 1;
     justify-content: center;
   }
 
